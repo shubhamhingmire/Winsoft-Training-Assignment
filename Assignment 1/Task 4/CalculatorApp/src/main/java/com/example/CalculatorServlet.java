@@ -23,7 +23,7 @@ public class CalculatorServlet extends HttpServlet {
     }
 
     private double evaluate(String expression) {
-        // Simple evaluation logic using JavaScript engine
+        
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         try {
