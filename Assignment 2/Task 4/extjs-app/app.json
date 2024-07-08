@@ -1,0 +1,10 @@
+{
+    "name": "CricketApp",
+    "requires": [
+        "ext",
+        "ext/classic"
+    ],
+    "framework": {
+        "path": "C:/ExtJS/ext-7.4.0"
+    }
+}
