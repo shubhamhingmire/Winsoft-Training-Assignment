@@ -1,3 +1,5 @@
+Sample Data To Test
+
 INSERT INTO SERIES (ID, NAME, DESCRIPTION) VALUES
 (1, 'Cricket World Cup 2024', 'The premier international cricket competition featuring teams from around the world.'),
 (2, 'T20 World Cup 2024', 'A fast-paced Twenty20 cricket tournament featuring international teams.');
@@ -14,7 +16,6 @@ INSERT INTO MATCH (ID, TEAMA, TEAMB, DATE, SERIES_ID) VALUES
 
 
 Series API Endpoints
-
 
 
 1)Create a Series
@@ -35,6 +36,7 @@ Copy code
     }
   ]
 }
+
 
 
 2)Get All Series
@@ -61,6 +63,7 @@ Copy code
 ]
 
 
+
 3)Get a Specific Series by ID
 
 URL: /api/series/{id}
@@ -81,6 +84,7 @@ Copy code
     }
   ]
 }
+
 
 
 4)Update a Series
@@ -104,6 +108,7 @@ Copy code
 }
 
 
+
 5)Delete a Series
 
 URL: /api/series/{id}
@@ -111,9 +116,11 @@ Method: DELETE
 
 
 
+
+
 Match API Endpoints
 
-Create a Match
+1)Create a Match
 
 URL: /api/matches
 Method: POST
@@ -130,7 +137,7 @@ Copy code
 }
 
 
-6)Get All Matches
+2)Get All Matches
 
 URL: /api/matches
 Method: GET
@@ -150,7 +157,7 @@ Copy code
 ]
 
 
-7)Get a Specific Match by ID
+3)Get a Specific Match by ID
 
 URL: /api/matches/{id}
 Method: GET
@@ -168,7 +175,7 @@ Copy code
 }
 
 
-8)Update a Match
+4)Update a Match
 
 URL: /api/matches/{id}
 Method: PUT
@@ -185,7 +192,7 @@ Copy code
 }
 
 
-9)Delete a Match
+5)Delete a Match
 
 URL: /api/matches/{id}
 Method: DELETE
