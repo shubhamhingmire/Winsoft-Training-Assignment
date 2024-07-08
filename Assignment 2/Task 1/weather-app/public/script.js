@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 console.log('Weather data received:', data);
 
-                // Extract and format weather data
+                
                 let weatherDescription;
                 if (isLocal) {
-                    // Mock data handling (adjust based on actual mock data structure)
+                    
                     data = data[0];
                 }
                 
