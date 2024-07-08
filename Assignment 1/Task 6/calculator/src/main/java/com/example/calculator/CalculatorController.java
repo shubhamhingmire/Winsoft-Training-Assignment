@@ -48,8 +48,8 @@ public class CalculatorController {
             double parseExpression() {
                 double x = parseTerm();
                 for (;;) {
-                    if (eat('+')) x += parseTerm(); // addition
-                    else if (eat('-')) x -= parseTerm(); // subtraction
+                    if (eat('+')) x += parseTerm(); 
+                    else if (eat('-')) x -= parseTerm();
                     else return x;
                 }
             }
@@ -57,8 +57,8 @@ public class CalculatorController {
             double parseTerm() {
                 double x = parseFactor();
                 for (;;) {
-                    if (eat('*')) x *= parseFactor(); // multiplication
-                    else if (eat('/')) x /= parseFactor(); // division
+                    if (eat('*')) x *= parseFactor(); 
+                    else if (eat('/')) x /= parseFactor(); 
                     else return x;
                 }
             }
