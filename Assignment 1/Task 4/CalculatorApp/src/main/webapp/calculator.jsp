@@ -8,7 +8,7 @@
             font-family: Arial, sans-serif;
         }
         .calculator {
-            width: 200px;
+            width: 240px;
             height: 300px;
             margin: 100px auto;
             padding: 20px;
