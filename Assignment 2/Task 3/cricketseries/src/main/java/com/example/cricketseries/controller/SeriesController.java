@@ -2,47 +2,43 @@ package com.example.cricketseries.controller;
 
 import com.example.cricketseries.model.Series;
 import com.example.cricketseries.service.SeriesService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/series")
+@RequestMapping("/series")
 public class SeriesController {
+
+    private static final Logger logger = LoggerFactory.getLogger(SeriesController.class);
+
     @Autowired
     private SeriesService seriesService;
 
-    @PostMapping
-    public ResponseEntity<Series> createSeries(@RequestBody Series series) {
-        Series createdSeries = seriesService.createSeries(series);
-        return new ResponseEntity<>(createdSeries, HttpStatus.CREATED);
+    @GetMapping
+    public List<Series> getAllSeries() {
+        logger.info("Received request to fetch all series.");
+        return seriesService.getAllSeries();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Series> getSeriesById(@PathVariable Long id) {
-        Optional<Series> series = seriesService.getSeriesById(id);
-        return series.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public Series getSeriesById(@PathVariable Long id) {
+        logger.info("Received request to fetch series with ID: {}", id);
+        return seriesService.getSeriesById(id);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Series>> getAllSeries() {
-        List<Series> seriesList = seriesService.getAllSeries();
-        return ResponseEntity.ok(seriesList);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Series> updateSeries(@PathVariable Long id, @RequestBody Series series) {
-        Series updatedSeries = seriesService.updateSeries(id, series);
-        return updatedSeries != null ? ResponseEntity.ok(updatedSeries) : ResponseEntity.notFound().build();
+    @PostMapping
+    public Series saveSeries(@RequestBody Series series) {
+        logger.info("Received request to save series: {}", series);
+        return seriesService.saveSeries(series);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSeries(@PathVariable Long id) {
+    public void deleteSeries(@PathVariable Long id) {
+        logger.info("Received request to delete series with ID: {}", id);
         seriesService.deleteSeries(id);
-        return ResponseEntity.noContent().build();
     }
 }
