@@ -2,47 +2,43 @@ package com.example.cricketseries.controller;
 
 import com.example.cricketseries.model.Match;
 import com.example.cricketseries.service.MatchService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/matches")
+@RequestMapping("/matches")
 public class MatchController {
+
+    private static final Logger logger = LoggerFactory.getLogger(MatchController.class);
+
     @Autowired
     private MatchService matchService;
 
-    @PostMapping
-    public ResponseEntity<Match> createMatch(@RequestBody Match match) {
-        Match createdMatch = matchService.createMatch(match);
-        return new ResponseEntity<>(createdMatch, HttpStatus.CREATED);
+    @GetMapping
+    public List<Match> getAllMatches() {
+        logger.info("Received request to fetch all matches.");
+        return matchService.getAllMatches();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Match> getMatchById(@PathVariable Long id) {
-        Optional<Match> match = matchService.getMatchById(id);
-        return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    public Match getMatchById(@PathVariable Long id) {
+        logger.info("Received request to fetch match with ID: {}", id);
+        return matchService.getMatchById(id);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Match>> getAllMatches() {
-        List<Match> matches = matchService.getAllMatches();
-        return ResponseEntity.ok(matches);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Match> updateMatch(@PathVariable Long id, @RequestBody Match match) {
-        Match updatedMatch = matchService.updateMatch(id, match);
-        return updatedMatch != null ? ResponseEntity.ok(updatedMatch) : ResponseEntity.notFound().build();
+    @PostMapping
+    public Match saveMatch(@RequestBody Match match) {
+        logger.info("Received request to save match: {}", match);
+        return matchService.saveMatch(match);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMatch(@PathVariable Long id) {
+    public void deleteMatch(@PathVariable Long id) {
+        logger.info("Received request to delete match with ID: {}", id);
         matchService.deleteMatch(id);
-        return ResponseEntity.noContent().build();
     }
 }
