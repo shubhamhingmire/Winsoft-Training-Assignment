@@ -21,24 +21,55 @@ public class SeriesController {
     @GetMapping
     public List<Series> getAllSeries() {
         logger.info("Received request to fetch all series.");
-        return seriesService.getAllSeries();
+        try {
+            List<Series> seriesList = seriesService.getAllSeries();
+            logger.debug("Fetched {} series", seriesList.size());
+            return seriesList;
+        } catch (Exception e) {
+            logger.error("Error fetching all series", e);
+            throw e;
+        }
     }
 
     @GetMapping("/{id}")
     public Series getSeriesById(@PathVariable Long id) {
         logger.info("Received request to fetch series with ID: {}", id);
-        return seriesService.getSeriesById(id);
+        try {
+            Series series = seriesService.getSeriesById(id);
+            if (series != null) {
+                logger.debug("Fetched series: {}", series);
+            } else {
+                logger.debug("No series found with ID: {}", id);
+            }
+            return series;
+        } catch (Exception e) {
+            logger.error("Error fetching series with ID: {}", id, e);
+            throw e;
+        }
     }
 
     @PostMapping
     public Series saveSeries(@RequestBody Series series) {
         logger.info("Received request to save series: {}", series);
-        return seriesService.saveSeries(series);
+        try {
+            Series savedSeries = seriesService.saveSeries(series);
+            logger.debug("Saved series: {}", savedSeries);
+            return savedSeries;
+        } catch (Exception e) {
+            logger.error("Error saving series: {}", series, e);
+            throw e;
+        }
     }
 
     @DeleteMapping("/{id}")
     public void deleteSeries(@PathVariable Long id) {
         logger.info("Received request to delete series with ID: {}", id);
-        seriesService.deleteSeries(id);
+        try {
+            seriesService.deleteSeries(id);
+            logger.debug("Deleted series with ID: {}", id);
+        } catch (Exception e) {
+            logger.error("Error deleting series with ID: {}", id, e);
+            throw e;
+        }
     }
 }
