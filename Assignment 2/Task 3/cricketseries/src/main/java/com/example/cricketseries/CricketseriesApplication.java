@@ -12,7 +12,12 @@ public class CricketseriesApplication {
 
     public static void main(String[] args) {
         logger.info("Starting Cricket Series Application...");
-        SpringApplication.run(CricketseriesApplication.class, args);
-        logger.info("Cricket Series Application Started Successfully.");
+        try {
+            SpringApplication.run(CricketseriesApplication.class, args);
+            logger.info("Cricket Series Application Started Successfully.");
+        } catch (Exception e) {
+            logger.error("Application failed to start.", e);
+        }
+        logger.info("Spring Application initialization completed.");
     }
 }
