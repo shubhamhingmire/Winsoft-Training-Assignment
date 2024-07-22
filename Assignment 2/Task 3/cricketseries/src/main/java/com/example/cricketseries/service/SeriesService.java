@@ -19,21 +19,52 @@ public class SeriesService {
 
     public List<Series> getAllSeries() {
         logger.info("Fetching all series.");
-        return seriesRepository.findAll();
+        try {
+            List<Series> seriesList = seriesRepository.findAll();
+            logger.debug("Fetched {} series", seriesList.size());
+            return seriesList;
+        } catch (Exception e) {
+            logger.error("Error fetching all series", e);
+            throw e;
+        }
     }
 
     public Series getSeriesById(Long id) {
         logger.info("Fetching series with ID: {}", id);
-        return seriesRepository.findById(id).orElse(null);
+        try {
+            Series series = seriesRepository.findById(id).orElse(null);
+            if (series != null) {
+                logger.debug("Fetched series: {}", series);
+            } else {
+                logger.debug("No series found with ID: {}", id);
+            }
+            return series;
+        } catch (Exception e) {
+            logger.error("Error fetching series with ID: {}", id, e);
+            throw e;
+        }
     }
 
     public Series saveSeries(Series series) {
         logger.info("Saving series: {}", series);
-        return seriesRepository.save(series);
+        try {
+            Series savedSeries = seriesRepository.save(series);
+            logger.debug("Saved series: {}", savedSeries);
+            return savedSeries;
+        } catch (Exception e) {
+            logger.error("Error saving series: {}", series, e);
+            throw e;
+        }
     }
 
     public void deleteSeries(Long id) {
         logger.info("Deleting series with ID: {}", id);
-        seriesRepository.deleteById(id);
+        try {
+            seriesRepository.deleteById(id);
+            logger.debug("Deleted series with ID: {}", id);
+        } catch (Exception e) {
+            logger.error("Error deleting series with ID: {}", id, e);
+            throw e;
+        }
     }
 }
