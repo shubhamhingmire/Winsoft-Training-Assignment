@@ -19,21 +19,52 @@ public class MatchService {
 
     public List<Match> getAllMatches() {
         logger.info("Fetching all matches.");
-        return matchRepository.findAll();
+        try {
+            List<Match> matches = matchRepository.findAll();
+            logger.debug("Fetched {} matches", matches.size());
+            return matches;
+        } catch (Exception e) {
+            logger.error("Error fetching all matches", e);
+            throw e;
+        }
     }
 
     public Match getMatchById(Long id) {
         logger.info("Fetching match with ID: {}", id);
-        return matchRepository.findById(id).orElse(null);
+        try {
+            Match match = matchRepository.findById(id).orElse(null);
+            if (match != null) {
+                logger.debug("Fetched match: {}", match);
+            } else {
+                logger.debug("No match found with ID: {}", id);
+            }
+            return match;
+        } catch (Exception e) {
+            logger.error("Error fetching match with ID: {}", id, e);
+            throw e;
+        }
     }
 
     public Match saveMatch(Match match) {
         logger.info("Saving match: {}", match);
-        return matchRepository.save(match);
+        try {
+            Match savedMatch = matchRepository.save(match);
+            logger.debug("Saved match: {}", savedMatch);
+            return savedMatch;
+        } catch (Exception e) {
+            logger.error("Error saving match: {}", match, e);
+            throw e;
+        }
     }
 
     public void deleteMatch(Long id) {
         logger.info("Deleting match with ID: {}", id);
-        matchRepository.deleteById(id);
+        try {
+            matchRepository.deleteById(id);
+            logger.debug("Deleted match with ID: {}", id);
+        } catch (Exception e) {
+            logger.error("Error deleting match with ID: {}", id, e);
+            throw e;
+        }
     }
 }
